@@ -4,7 +4,7 @@ export default {
   install(Vue) {
     const store = new WeakMap();
     Vue.mixin({
-      beforeCreated: function initTimerSet() {
+      beforeCreate: function initTimerSet() {
         store.set(this, new Set());
       },
       destroyed: function clear() {
@@ -19,7 +19,9 @@ export default {
       const set = store.get(this);
       if (!set) throw new Error(errorMessage);
 
-      return set.set(window.setInterval(...params));
+      const id = window.setInterval(...params);
+      set.add(id);
+      return id;
     };
 
     Vue.prototype.$polling = function $polling(func, interval, ...rest) {
@@ -44,7 +46,8 @@ export default {
         set.delete(id);
         func(...params);
       }, ...rest);
-      return set.set(id);
+      set.add(id);
+      return id;
     };
 
     Vue.prototype.$clear = function $timeout(id) {
@@ -57,4 +60,4 @@ export default {
       set.delete(id);
     };
   }
-}
+};
