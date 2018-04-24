@@ -2,8 +2,7 @@
   "name": "vue-plugin-timer",
   "version": "0.2.0",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib src/index.js",
     "test": "vue-cli-service test -r should -r should-sinon tests/**/*.spec.js",
     "lint": "vue-cli-service lint"
   },
