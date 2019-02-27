@@ -6,6 +6,15 @@
     "dist/*.{js,map}",
     "src/index.js"
   ],
+  "keywords": [
+    "timer",
+    "setTimeout",
+    "setInterval",
+    "clear",
+    "polling",
+    "vue",
+    "plugin"
+  ],
   "scripts": {
     "prepack": "npm test && npm run build",
     "build": "vue-cli-service build --target lib src/index.js",
