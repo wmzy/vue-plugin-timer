@@ -2,13 +2,18 @@ const errorMessage = 'Can not use before component created or after destroyed!';
 
 export default {
   install(Vue) {
+    if (!window) {
+      // eslint-disable-next-line no-console
+      console.warn('[vue-plugin-timer] only work in browser');
+      return;
+    }
     const store = new WeakMap();
     Vue.mixin({
       beforeCreate: function initTimerSet() {
         store.set(this, new Set());
       },
       destroyed: function clear() {
-        for (const i of store.get(this, new Set())) {
+        for (const i of store.get(this)) {
           this.$clear(i);
         }
         store.delete(this);
