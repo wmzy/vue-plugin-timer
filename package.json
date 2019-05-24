@@ -1,6 +1,6 @@
 {
   "name": "vue-plugin-timer",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "dist/vue-plugin-timer.common.js",
   "browser": "dist/vue-plugin-timer.umd.js",
   "files": [
