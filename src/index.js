@@ -1,5 +1,3 @@
-const errorMessage = 'Can not use before component created or after destroyed!';
-
 export default {
   install(Vue) {
     if (!window) {
@@ -16,14 +14,11 @@ export default {
         for (const i of store.get(this)) {
           this.$clear(i);
         }
-        store.delete(this);
       }
     });
 
     Vue.prototype.$interval = function $interval(...params) {
       const set = store.get(this);
-      if (!set) throw new Error(errorMessage);
-
       const id = window.setInterval(...params);
       set.add(id);
       return id;
@@ -35,7 +30,6 @@ export default {
       (async function polling() {
         await func(...rest);
         const set = store.get(self);
-        if (!set) return;
         set.delete(id);
         id = window.setTimeout(polling, interval);
         set.add(id);
@@ -45,8 +39,6 @@ export default {
 
     Vue.prototype.$timeout = function $timeout(func, ...rest) {
       const set = store.get(this);
-      if (!set) throw new Error(errorMessage);
-
       const id = window.setTimeout((...params) => {
         set.delete(id);
         func(...params);
