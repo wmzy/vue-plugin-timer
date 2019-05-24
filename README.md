@@ -1,5 +1,7 @@
 # vue plugin timer
 
+> An easy way to use setTimeout and setInterval.
+
 ## Install
 
 ```bash
@@ -12,6 +14,27 @@ import Vue from 'vue';
 import Timer from 'vue-plugin-timer';
 
 Vue.use(Timer);
+```
+
+Then in Vue lifecycle hooks, use `this.$setTimeout` `this.$setInterval` `this.$clearTimeout` `this.$clearInterval` replace the methods of `window`.
+
+All timers will be cleared when component destroyed.
+
+```html
+<script>
+export default {
+  props: ['message'],
+  mounted() {
+    // use window.setTimeout
+    this.timer = window.setTimeout(() => console.log(this.message), 60 * 1000);
+    // use vue-plugin-timer
+    this.$setTimeout(() => console.log(this.message), 60 * 1000);
+  },
+  destroyed() {
+    window.clearTimeout(this.timer);
+  }
+}
+</script>
 ```
 
 ## License
