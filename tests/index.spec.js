@@ -12,14 +12,14 @@ describe('vue-plugin-timer', () => {
     this.clock.restore();
   });
 
-  it('$timeout auto clear', function() {
+  it('$setTimeout auto clear', function() {
     const localVue = createLocalVue();
     localVue.use(Timer);
 
     const fn = sinon.spy();
     TimerStub.mounted = function() {
-      this.$timeout(fn, 0);
-      this.$timeout(fn, 1);
+      this.$setTimeout(fn, 0);
+      this.$setTimeout(fn, 1);
     };
 
     const wrapper = mount(TimerStub, {
@@ -33,32 +33,32 @@ describe('vue-plugin-timer', () => {
     delete TimerStub.mounted;
   });
 
-  it('$timeout manual clear', function() {
+  it('$setTimeout manual clear', function() {
     const localVue = createLocalVue();
     localVue.use(Timer);
 
     const fn = sinon.spy();
     let timerId;
     TimerStub.mounted = function() {
-      timerId = this.$timeout(fn, 1);
+      timerId = this.$setTimeout(fn, 1);
     };
 
     const wrapper = mount(TimerStub, {
       localVue
     });
-    wrapper.vm.$clear(timerId);
+    wrapper.vm.$clearTimeout(timerId);
     this.clock.next();
     fn.should.be.not.called();
     delete TimerStub.mounted;
   });
 
-  it('$interval auto clear', function() {
+  it('$setInterval auto clear', function() {
     const localVue = createLocalVue();
     localVue.use(Timer);
 
     const fn = sinon.spy();
     TimerStub.mounted = function() {
-      this.$interval(fn, 1);
+      this.$setInterval(fn, 1);
     };
 
     const wrapper = mount(TimerStub, {
@@ -72,14 +72,14 @@ describe('vue-plugin-timer', () => {
     delete TimerStub.mounted;
   });
 
-  it('$interval manual clear', function() {
+  it('$setInterval manual clear', function() {
     const localVue = createLocalVue();
     localVue.use(Timer);
 
     const fn = sinon.spy();
     let timerId;
     TimerStub.mounted = function() {
-      timerId = this.$interval(fn, 1);
+      timerId = this.$setInterval(fn, 1);
     };
 
     const wrapper = mount(TimerStub, {
@@ -87,7 +87,7 @@ describe('vue-plugin-timer', () => {
     });
     this.clock.next();
     fn.should.be.calledOnce();
-    wrapper.vm.$clear(timerId);
+    wrapper.vm.$clearInterval(timerId);
     this.clock.next();
     fn.should.be.calledOnce();
     delete TimerStub.mounted;

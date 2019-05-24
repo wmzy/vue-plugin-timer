@@ -2,6 +2,7 @@
   "name": "vue-plugin-timer",
   "version": "0.2.2",
   "main": "dist/vue-plugin-timer.common.js",
+  "browser": "dist/vue-plugin-timer.umd.js",
   "files": [
     "dist/*.{js,map}",
     "src/index.js"
@@ -17,7 +18,7 @@
   ],
   "scripts": {
     "prepack": "npm test && npm run build",
-    "build": "vue-cli-service build --target lib src/index.js",
+    "build": "vue-cli-service build --target lib --filename vue-plugin-timer --name vuePluginTimer src/index.js",
     "test": "vue-cli-service test:unit -r should -r should-sinon tests/**/*.spec.js",
     "lint": "vue-cli-service lint"
   },
