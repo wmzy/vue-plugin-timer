@@ -41,7 +41,11 @@ export default function install(Vue) {
 
     if (typeof id === 'function') id = id();
 
-    window.clearTimeout(id);
+    try {
+      window.clearTimeout(id);
+    } catch (e) {
+      window.clearInterval(id);
+    }
     set.delete(id);
   }
 
